@@ -27,6 +27,8 @@ class StripeController extends Controller
                         'role' => $product->type == 1 ? 3 : 2
                     ];
                     $user = User::createUsers($data);
+                    $user->assignRole($product->type == 1 ? 'B2B' : 'B2C');
+
                     \Stripe\Stripe::setApiKey(config('stripe.sk'));
                     $session = \Stripe\Checkout\Session::create([
                         'line_items'  => [
@@ -51,6 +53,7 @@ class StripeController extends Controller
                 }
             } catch (Exception $e) {
                 session()->flash('error', 'Something went wrong.' . $e->getMessage());
+                
                 return redirect()->back();
             }
         } else {
