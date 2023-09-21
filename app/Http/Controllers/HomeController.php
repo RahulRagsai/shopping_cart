@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         $userId = Auth::user()->id;
         $latestOrder = Order::where('user_id', $userId)->latest()->first();
-        return view('b2c', ['lastOrder' => $latestOrder]);
+        return view('b2b', ['lastOrder' => $latestOrder]);
     }
 
     public function B2B()
