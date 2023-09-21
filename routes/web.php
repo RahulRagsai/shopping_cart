@@ -59,5 +59,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('B2C', 'HomeController@B2C');
     Route::get('B2B', 'HomeController@B2B');
     Route::get('revoke', 'HomeController@revoke')->name('revoke');
+    Route::get('refund', 'Stripe\StripeController@refund')->name('refund');
 });
 

@@ -69,7 +69,7 @@ class StripeController extends Controller
                 $request->session_id,
                 []
             );
-            
+
             $order = new Order;
             $order->user_id = $request->userId;
             $order->order_id = $retrieve->id;
@@ -83,10 +83,32 @@ class StripeController extends Controller
 
             session()->flash('success', 'Order Created Successfully. Your Order ID is ' . $retrieve->id);
             return redirect()->back();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             session()->flash('error', 'Something went wrong.' . $e->getMessage());
             return redirect()->back();
         }
-        
+    }
+
+    public function refund(Request $request)
+    {
+        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+        $paymentIntentId = $request->id;
+
+        try {
+            $refund = \Stripe\Refund::create([
+                'payment_intent' => $paymentIntentId,
+            ]);
+            
+            if ($refund->status === 'succeeded') {
+                session()->flash('success', 'Refunded Successfully');
+                return redirect()->back();
+            } else {
+                session()->flash('error', 'Something went wrong.');
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'Something went wrong. ' . $e->getMessage());
+            return redirect()->back();
+        }
     }
 }

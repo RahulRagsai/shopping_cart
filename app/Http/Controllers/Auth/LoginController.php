@@ -48,7 +48,7 @@ class LoginController extends Controller
             return 'B2C';
             break;
           case '3':
-            return 'B2C';
+            return 'B2B';
             break;
           default:
             return 'login'; 

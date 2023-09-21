@@ -5,9 +5,9 @@
     <!-- Sidebar  -->
     <nav id="sidebar">
         <div class="sidebarHeader">
-        @if(isset($lastOrder))
+            @if(isset($lastOrder))
             <h3>{{ $lastOrder->product->type == 1 ? 'B2B' : 'B2C'}} Purchase Details</h3>
-        @endif
+            @endif
         </div>
 
 
@@ -22,9 +22,15 @@
                     <div class="card-header">Last Order</div>
 
                     <div class="card-body">
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                        @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+                        @if (Session::has('success'))
+                        <div class="alert alert-success text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p>{{ Session::get('success') }}</p>
                         </div>
                         @endif
                         <table class="table">
@@ -37,7 +43,7 @@
                                     <th scope="col">Payment Status</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Purchased On</th>
-                                   
+                                    <th scope="col">Revoke</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,6 +56,7 @@
                                     <td>{{ $lastOrder->payment_status }}</td>
                                     <td>{{ $lastOrder->status }}</td>
                                     <td>{{ $lastOrder->created_at }}</td>
+                                    <td><a href="{{ route('refund', ['id' => $lastOrder->payment_id]) }}">Revoke</a></td>
                                 </tr>
                                 @endif
                             </tbody>
