@@ -1,104 +1,15 @@
-<!-- <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Shopping Cart</title>
-
-       
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-      
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-               
-            </div>
-        </div>
-    </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Shopping Cart</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Navbar with Login Button -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -120,6 +31,11 @@
     <!-- Product Listing Section -->
     <div class="container mt-5">
         <div class="row">
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
             <!-- Product 1 -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
@@ -127,7 +43,10 @@
                     <div class="card-body">
                         <h5 class="card-title">Macbook Pro</h5>
                         <p class="card-text">B2B Product</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
+                        <h5>$20.00</h5>
+                        <button type="button" class="btn btn-primary checkout" data-id="1">
+                            Checkout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -139,20 +58,56 @@
                     <div class="card-body">
                         <h5 class="card-title">IPhone 14 Pro</h5>
                         <p class="card-text">B2C Customer</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
+                        <h5>$21.00</h5>
+                        <button type="button" class="btn btn-primary checkout" data-id="2">
+                            Checkout
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more product cards as needed -->
-
         </div>
     </div>
 
-    <!-- Include Bootstrap JS and jQuery for navbar functionality -->
+    <!-- Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="checkoutForm" name="checkoutForm" action="checkout" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_productId" id="_productId">
+                        <input type="text" name="username" id="username" placeholder="Enter your name" required>
+                        <input type="text" name="email" id="email" placeholder="Enter your email" required>
+                        <input type="text" name="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <script>
+        $(document).ready(function() {
+            $('.checkout').click(function() {
+                $('#checkoutModal').modal('show');
+                var productId = $(this).data('id');
+                $('#_productId').val(productId);
+            })
 
+
+        });
+    </script>
+
+</html>
