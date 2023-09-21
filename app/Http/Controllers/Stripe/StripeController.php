@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Exception;
 
 class StripeController extends Controller
@@ -18,7 +20,7 @@ class StripeController extends Controller
                 $product = Product::find($request->_productId);
                 if ($product) {
                     $data = [
-                        'name' => $request->user,
+                        'name' => $request->username,
                         'email' => $request->email,
                         'password' => Hash::make($request->password),
                         'remember_token' => Str::random(10),
