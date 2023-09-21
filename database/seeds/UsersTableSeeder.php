@@ -17,7 +17,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'super_admin',
             'email' => 'admin@upwork.com',
             'password' => Hash::make('password123'),
-            'remember_token' => Str::random(10)
+            'remember_token' => Str::random(10),
+            'role' => 1
         ]);
     }
 }

@@ -18,10 +18,10 @@ class CreateOrdersTable extends Migration
             $table->string('order_id');
             $table->string('payment_id');
             $table->integer('order_item_id');
-            $table->string('payment_status');
-            $table->string('mode');
+            $table->string('payment_status')->nullable();
+            $table->string('mode')->nullable();
             $table->integer('order_value');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

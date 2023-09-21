@@ -76,7 +76,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,6 +92,40 @@
                         <input type="text" name="username" id="username" placeholder="Enter your name" required>
                         <input type="text" name="email" id="email" placeholder="Enter your email" required>
                         <input type="text" name="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="checkoutForm" name="checkoutForm" action="checkout" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="username">Name</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Email address</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+                        </div>
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_productId" id="_productId">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-secondary">Submit</button>
