@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('checkout', 'Stripe\StripeController@checkout')->name('checkout');
-Route::get('success', 'Stripe\StripeController@success')->name('success');
+Route::get('success', 'Stripe\StripeController@success');
 
 Auth::routes();
 
