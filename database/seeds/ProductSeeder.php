@@ -16,14 +16,14 @@ class ProductSeeder extends Seeder
             'name' => 'Macbook Pro',
             'description' => 'Macbook Pro is a B2B Product',
             'type' => 1,
-            'price' => 20,
+            'price' => 2000,
         ]);
 
         Product::create([
             'name' => 'IPhone 14 Pro',
             'description' => 'IPhone Pro is a B2C Product',
             'type' => 2,
-            'price' => 21,
+            'price' => 2100,
         ]);
     }
 }
