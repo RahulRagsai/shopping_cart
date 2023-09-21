@@ -30,17 +30,17 @@
 
     <!-- Product Listing Section -->
     <div class="container mt-5">
-    @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-            @if (Session::has('success'))
-            <div class="alert alert-success text-center">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <p>{{ Session::get('success') }}</p>
-            </div>
-            @endif
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        @if (Session::has('success'))
+        <div class="alert alert-success text-center">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <p>{{ Session::get('success') }}</p>
+        </div>
+        @endif
         <div class="row">
             <!-- Product 1 -->
             <div class="col-lg-4 col-md-6 mb-4">

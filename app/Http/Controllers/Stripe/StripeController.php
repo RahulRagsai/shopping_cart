@@ -53,7 +53,6 @@ class StripeController extends Controller
                 }
             } catch (Exception $e) {
                 session()->flash('error', 'Something went wrong.' . $e->getMessage());
-                
                 return redirect()->back();
             }
         } else {
@@ -77,6 +76,9 @@ class StripeController extends Controller
             $order->payment_id = $retrieve->payment_intent;
             $order->order_item_id = $request->id;
             $order->order_value = $request->price;
+            $order->payment_status = $retrieve->payment_status;
+            $order->mode = $retrieve->mode;
+            $order->status = $retrieve->status;
             $order->save();
 
             session()->flash('success', 'Order Created Successfully. Your Order ID is ' . $retrieve->id);

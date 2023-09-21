@@ -6,7 +6,7 @@
     <nav id="sidebar">
         <div class="sidebarHeader">
         @if(isset($lastOrder))
-            <h3>{{$lastOrder->product->type == 1 ? 'B2B' : 'B2C'}}</h3>
+            <h3>{{ $lastOrder->product->type == 1 ? 'B2B' : 'B2C'}} Purchase Details</h3>
         @endif
         </div>
 
@@ -34,7 +34,9 @@
                                     <th scope="col">Product</th>
                                     <th scope="col">Order Id</th>
                                     <th scope="col">Payment ID</th>
-                                    <th scope="col">Created On</th>
+                                    <th scope="col">Payment Status</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Purchased On</th>
                                    
                                 </tr>
                             </thead>
@@ -42,12 +44,12 @@
                                 @if(isset($lastOrder))
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>{{$lastOrder->product->name}}
-                                    </td>
-                                    <td>Otto@gmail.com</td>
-                                    <td>Admin</td>
-                                    <td>23/02/2023</td>
-                                    <td> - </td>
+                                    <td>{{ $lastOrder->product->name }}</td>
+                                    <td>{{ $lastOrder->order_id }}</td>
+                                    <td>{{ $lastOrder->payment_id }}</td>
+                                    <td>{{ $lastOrder->payment_status }}</td>
+                                    <td>{{ $lastOrder->status }}</td>
+                                    <td>{{ $lastOrder->created_at }}</td>
                                 </tr>
                                 @endif
                             </tbody>
